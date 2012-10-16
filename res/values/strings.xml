@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">TweetSearch</string>
-    <string name="title_searchterm_detail">SearchTerm Detail</string>
-    <string name="title_searchterm_list">SearchTerms</string>
+    <string name="title_searchterm_detail">Search Results</string>
+    <string name="title_searchterm_list">Search</string>
 
 </resources>
