@@ -3,5 +3,8 @@
     <string name="app_name">TweetSearch</string>
     <string name="title_searchterm_detail">Search Results</string>
     <string name="title_searchterm_list">Search</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="new_filter">New Filter</string>
 
 </resources>
