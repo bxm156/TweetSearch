@@ -28,6 +28,7 @@
                 android:value=".SearchTermListActivity" />
         </activity>
         <service android:exported="false" android:name=".services.TwitterService" android:label="TweetSearchService"></service>
+        <activity android:name="SearchTermCreateActivity" android:label="@string/title_searchterm_create"></activity>
     </application>
 
 </manifest>

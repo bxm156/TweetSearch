@@ -1,5 +1,6 @@
 package com.bryanmarty.tweetsearch;
 
+import com.bryanmarty.tweetsearch.fragments.SearchTermCreateFragment;
 import com.bryanmarty.tweetsearch.fragments.SearchTermDetailFragment;
 import com.bryanmarty.tweetsearch.fragments.SearchTermListFragment;
 import com.bryanmarty.tweetsearch.services.TwitterService;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.LocalBroadcastManager;
@@ -88,10 +90,25 @@ public class SearchTermListActivity extends FragmentActivity
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.new_filter:
-				Toast.makeText(this, "New Filter", Toast.LENGTH_SHORT).show();
+				onCreateNewTweetFilter();
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void onCreateNewTweetFilter() {
+		if (mTwoPane) {
+            Bundle arguments = new Bundle();
+            SearchTermCreateFragment fragment = new SearchTermCreateFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.searchterm_detail_container, fragment)
+                    .commit();
+
+        } else {
+            Intent detailIntent = new Intent(this, SearchTermCreateActivity.class);
+            startActivity(detailIntent);
+        }
 	}
     
 }
