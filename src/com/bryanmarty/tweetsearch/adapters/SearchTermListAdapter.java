@@ -1,9 +1,11 @@
 package com.bryanmarty.tweetsearch.adapters;
 
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.bryanmarty.tweetsearch.R;
 import com.bryanmarty.tweetsearch.TweetSearchApplication;
+import com.bryanmarty.tweetsearch.data.ObservableLinkedList;
 import com.bryanmarty.tweetsearch.data.TweetSearchTerm;
 
 import android.content.Context;
@@ -14,13 +16,14 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SearchTermListAdapter extends BaseAdapter {
+public class SearchTermListAdapter extends BaseAdapter implements Observer {
 	
-	private List<TweetSearchTerm> searchTermList_;
+	private ObservableLinkedList<TweetSearchTerm> searchTermList_;
 	private Context context_;
 
-	public SearchTermListAdapter(List<TweetSearchTerm> searchTermList, Context context) {
+	public SearchTermListAdapter(Context context) {
 		searchTermList_ = TweetSearchApplication.getTweetSearchTermManager().getTweetSearchTermList();
+		searchTermList_.addObserver(this);
 		context_ = context;
 	}
 
@@ -50,6 +53,11 @@ public class SearchTermListAdapter extends BaseAdapter {
 		unreadCount.setText(term.getUnreadTweetCount().toString());
 		
 		return itemLayout;
+	}
+
+	@Override
+	public void update(Observable observable, Object data) {
+		notifyDataSetChanged();
 	}
 
 }

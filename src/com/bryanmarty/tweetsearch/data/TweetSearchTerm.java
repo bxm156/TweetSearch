@@ -6,6 +6,10 @@ public class TweetSearchTerm {
 	private String displayName_ = "Undefined";
 	private Integer unreadTweets_ = 0;
 
+	public TweetSearchTerm(String displayName) {
+		displayName_ = displayName;
+	}
+	
 	public TweetSearchTerm(long id, String displayName) {
 		id_ = id;
 		displayName_ = displayName;

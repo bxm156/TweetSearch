@@ -8,7 +8,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 
-public class SearchTermCreateActivity extends FragmentActivity {
+public class SearchTermCreateActivity extends FragmentActivity implements SearchTermCreateFragment.Callbacks {
 
 	public SearchTermCreateActivity() {
 		// TODO Auto-generated constructor stub
@@ -39,4 +39,9 @@ public class SearchTermCreateActivity extends FragmentActivity {
 
 	        return super.onOptionsItemSelected(item);
 	    }
+
+	@Override
+	public void onSearchTermCreated() {
+        NavUtils.navigateUpTo(this, new Intent(this, SearchTermListActivity.class));
+	}
 }

@@ -33,7 +33,7 @@ public class SearchTermListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new SearchTermListAdapter(TweetSearchApplication.getTweetSearchTermManager().getTweetSearchTermList(),getActivity()));
+        setListAdapter(new SearchTermListAdapter(getActivity()));
     }
 
     @Override

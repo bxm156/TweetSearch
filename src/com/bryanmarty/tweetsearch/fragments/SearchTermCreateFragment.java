@@ -1,9 +1,13 @@
 package com.bryanmarty.tweetsearch.fragments;
 
 import com.bryanmarty.tweetsearch.R;
+import com.bryanmarty.tweetsearch.TweetSearchApplication;
+import com.bryanmarty.tweetsearch.data.TweetSearchTerm;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,9 +17,20 @@ import android.widget.TextView;
 
 public class SearchTermCreateFragment extends Fragment {
 
-	public SearchTermCreateFragment() {
-		
-	}
+	private Callbacks mCallbacks = sDummyCallbacks;
+
+    public interface Callbacks {
+
+        public void onSearchTermCreated();
+    }
+
+    private static Callbacks sDummyCallbacks = new Callbacks() {
+        @Override
+        public void onSearchTermCreated() {
+        	
+        }
+    };
+
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +50,26 @@ public class SearchTermCreateFragment extends Fragment {
     }
 	
 	public void onCreateFragment(String searchTerm) {
-		
+		TweetSearchTerm tst = new TweetSearchTerm(4L,searchTerm);
+		TweetSearchApplication.getTweetSearchTermManager().addTweetSearchTerm(tst);
+		mCallbacks.onSearchTermCreated();
 	}
+	
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (!(activity instanceof Callbacks)) {
+            throw new IllegalStateException("Activity must implement fragment's callbacks.");
+        }
+
+        mCallbacks = (Callbacks) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = sDummyCallbacks;
+    }
 
 }

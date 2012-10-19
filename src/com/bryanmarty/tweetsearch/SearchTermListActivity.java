@@ -20,7 +20,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class SearchTermListActivity extends FragmentActivity
-        implements SearchTermListFragment.Callbacks {
+        implements SearchTermListFragment.Callbacks, SearchTermCreateFragment.Callbacks {
 
     private static final String NEW_TWEET_INTENT = "New-Tweet";
 	private boolean mTwoPane;
@@ -117,6 +117,11 @@ public class SearchTermListActivity extends FragmentActivity
 	private void onExit() {
 		 stopService(new Intent(this,TwitterService.class));
 		 
+	}
+
+	@Override
+	public void onSearchTermCreated() {
+		return;
 	}
 
     
