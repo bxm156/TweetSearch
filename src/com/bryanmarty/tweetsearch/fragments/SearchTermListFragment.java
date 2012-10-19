@@ -1,13 +1,12 @@
 package com.bryanmarty.tweetsearch.fragments;
 
-import com.bryanmarty.tweetsearch.dummy.DummyContent;
+import com.bryanmarty.tweetsearch.TweetSearchApplication;
+import com.bryanmarty.tweetsearch.adapters.SearchTermListAdapter;
 
-import android.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class SearchTermListFragment extends ListFragment {
@@ -19,12 +18,12 @@ public class SearchTermListFragment extends ListFragment {
 
     public interface Callbacks {
 
-        public void onItemSelected(String id);
+        public void onItemSelected(Long id);
     }
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(Long id) {
         }
     };
 
@@ -34,10 +33,7 @@ public class SearchTermListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                R.layout.simple_list_item_activated_1,
-                R.id.text1,
-                DummyContent.ITEMS));
+        setListAdapter(new SearchTermListAdapter(TweetSearchApplication.getTweetSearchTermManager().getTweetSearchTermList(),getActivity()));
     }
 
     @Override
@@ -68,7 +64,7 @@ public class SearchTermListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(TweetSearchApplication.getTweetSearchTermManager().getTweetSearchTermList().get(position).getId());
     }
 
     @Override

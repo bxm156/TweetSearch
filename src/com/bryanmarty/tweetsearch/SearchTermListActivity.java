@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
@@ -63,10 +62,10 @@ public class SearchTermListActivity extends FragmentActivity
     }
 
     @Override
-    public void onItemSelected(String id) {
+    public void onItemSelected(Long id) {
         if (mTwoPane) {
             Bundle arguments = new Bundle();
-            arguments.putString(SearchTermDetailFragment.ARG_ITEM_ID, id);
+            arguments.putLong(SearchTermDetailFragment.ARG_ITEM_ID, id);
             SearchTermDetailFragment fragment = new SearchTermDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -92,10 +91,14 @@ public class SearchTermListActivity extends FragmentActivity
 			case R.id.new_filter:
 				onCreateNewTweetFilter();
 				return true;
+			case R.id.menu_exit:
+				onExit();
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
+
 	public void onCreateNewTweetFilter() {
 		if (mTwoPane) {
             Bundle arguments = new Bundle();
@@ -110,5 +113,11 @@ public class SearchTermListActivity extends FragmentActivity
             startActivity(detailIntent);
         }
 	}
+	
+	private void onExit() {
+		 stopService(new Intent(this,TwitterService.class));
+		 
+	}
+
     
 }
